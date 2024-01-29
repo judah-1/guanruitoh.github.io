@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paypal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Align content in a column */
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            height: 100vh;           /* Set to full viewport height */
+            margin: 0;
+            padding: 0;
+            zoom: 1.5;
+        }
+
+        #notification {
+            font-size: 20px;
+            margin-bottom: 20px; /* Add some space between the notification and button */
+            font-family: 'Fjalla One', sans-serif;
+        }
+
+        #paypal {
+            text-align: center;
+        }
+
+        #paypal button {
+            font-size: 24px;
+        }
+    </style>
+    <script src="https://www.paypal.com/sdk/js?client-id=AY-nB7tTT0jn1PwyOmBgApQkpT81q31dktwAOe11uLrLbn-wwJoubaCbb9f07zJj9ub-GuvpDUesI4Wq"></script>
+    
+</head>
+<body>
+    <div id="notification">Your order is ready for payment. The outstanding amount is $10.</div>
+    <div id="paypal"></div>
+    
+     <script>
+        // Scroll to the middle of the page on load
+        window.onload = function() {
+            const windowHeight = window.innerHeight;
+            const halfWindowHeight = windowHeight / 2;
+            window.scrollTo(0, halfWindowHeight);
+        };
+        
+        
+        paypal.Buttons({
+    style: {
+        size: 'responsive' // You can change this to 'small', 'medium', 'large', or 'responsive'
+    },
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: 10,
+                }
+            }]
+        });
+    },
+    
+    onApprove: function(data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert("Transaction completed by " + details.payer.name.given_name);
+                    
+                    // Display a message and redirect after a delay
+                    const notification = document.getElementById('notification');
+                    notification.textContent = 'Transaction successful. Redirecting back to Donation Page...';
+                    setTimeout(function() {
+                        window.location.href = 'donation.php'; // 
+                    }, 4000); // Delay in milliseconds 
+                });
+            }
+        }).render('#paypal');
+
+    </script>
+</body>
+</html>
