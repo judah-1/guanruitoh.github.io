@@ -22,6 +22,13 @@
 
     <div class="main-content">
         <img src="barcode.gif" alt="Barcode coke">
+        <svg class="barcode"
+  jsbarcode-format="upc"
+  jsbarcode-value="123456789012"
+  jsbarcode-textmargin="0"
+  jsbarcode-fontoptions="bold">
+</svg>
+        JsBarcode(".barcode").init();
         <p class="main-content__body" data-lead-id="main-content-body">Thank you for your purchase! Please come back again!</p>
         
         <!-- Additional content -->
