@@ -28,7 +28,14 @@
   jsbarcode-textmargin="0"
   jsbarcode-fontoptions="bold">
 </svg>
-        <script>JsBarcode("#barcode", "10209029");</script>
+        <script>JsBarcode("#barcode", "1234", {
+  format: "pharmacode",
+  lineColor: "#0aa",
+  width: 4,
+  height: 40,
+  displayValue: false
+});</script>
+        <script>JsBarcode(".barcode").init();</script>
         <p class="main-content__body" data-lead-id="main-content-body">Thank you for your purchase! Please come back again!</p>
         
         <!-- Additional content -->
